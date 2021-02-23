@@ -1,0 +1,7 @@
+include ':libcommon'
+include ':libnetwork'
+include ':libnetwork'
+include ':libnavcompiler'
+include ':libnavannotation'
+include ':app'
+rootProject.name = "hongpeng"

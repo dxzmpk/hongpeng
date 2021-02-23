@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.home.HomeFragment">
+
+    <data>
+        <variable
+            name="act"
+            type="com.dxzmpk.hongpeng.model.Activity" />
+    </data>
+
+    <android.widget.LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <com.dxzmpk.hongpeng.view.MyImageView
+            android:id="@+id/my_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="5dp"/>
+
+        <include
+            layout="@layout/layout_act_title"
+            app:title="@{act.title}"
+            app:isOnline="@{act.isOnline}"/>
+
+        <include layout="@layout/layout_act_detail"
+            app:reading="@{act.reading}"
+            app:price="@{act.price}"/>
+
+
+    </android.widget.LinearLayout>
+</layout>
