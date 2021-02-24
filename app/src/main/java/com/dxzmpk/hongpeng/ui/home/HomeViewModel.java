@@ -24,9 +24,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class HomeViewModel extends AbsViewModel<Activity> {
 
-    private volatile boolean witchCache = true;
-    private MutableLiveData<PagedList<Activity>> cacheLiveData = new MutableLiveData<>();
-    private AtomicBoolean loadAfter = new AtomicBoolean(false);
+//    private volatile boolean witchCache = true;
+//    private MutableLiveData<PagedList<Activity>> cacheLiveData = new MutableLiveData<>();
+//    private AtomicBoolean loadAfter = new AtomicBoolean(false);
 
     public HomeViewModel() {
     }
@@ -58,8 +58,6 @@ public class HomeViewModel extends AbsViewModel<Activity> {
         }
     }
 
-    boolean lastItem = false;
-
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private List<Activity> loadData(int pageIndex, int pageSize, String pubState, String title) {
@@ -72,12 +70,6 @@ public class HomeViewModel extends AbsViewModel<Activity> {
                 .responseType(new TypeReference<ArrayList<Activity>>(){}.getType());
         request.cacheStrategy(Request.NET_ONLY);
         ApiResponse<List<Activity>> response = request.execute();
-        if (response.body.size() <= 1) {
-            lastItem = true;
-        }
-        if (lastItem) {
-            return Collections.emptyList();
-        }
         List<Activity> data = response.body == null? Collections.emptyList() : response.body;
         data.forEach((x)->x.setShowPic("http://42.192.206.123:8083/files/" + x.getShowPic()));
         Log.e(TAG, "loadData: data Loaded pageIndex = " + pageIndex);

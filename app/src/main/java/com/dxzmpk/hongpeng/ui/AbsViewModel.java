@@ -23,8 +23,8 @@ public abstract class AbsViewModel<T> extends ViewModel {
     public AbsViewModel() {
 
         config = new PagedList.Config.Builder()
-                .setPageSize(5)
-                .setInitialLoadSizeHint(5)
+                .setPageSize(3)
+                .setInitialLoadSizeHint(3)
                 .build();
 
         pageData = new LivePagedListBuilder(factory, config)
@@ -81,8 +81,5 @@ public abstract class AbsViewModel<T> extends ViewModel {
     };
 
     public abstract DataSource createDataSource();
-
-
-
 
 }

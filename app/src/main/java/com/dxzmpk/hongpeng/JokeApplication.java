@@ -17,6 +17,6 @@ public class JokeApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        ApiService.init("http://42.192.206.123:8083", null);
+        ApiService.init("http://192.168.0.105:8083", null);
     }
 }
