@@ -32,6 +32,5 @@
             app:reading="@{act.reading}"
             app:price="@{act.price}"/>
 
-
     </android.widget.LinearLayout>
 </layout>

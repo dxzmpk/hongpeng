@@ -12,7 +12,7 @@ android {
 
     defaultConfig {
         applicationId "com.dxzmpk.hongpeng"
-        minSdkVersion 18
+        minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -53,6 +53,7 @@ dependencies {
     implementation project(':libnavannotation')
     annotationProcessor project(":libnavcompiler")
 
+
     implementation 'com.alibaba:fastjson:1.2.59'
 
     // lombok依赖
@@ -69,6 +70,8 @@ dependencies {
     api 'jp.wasabeef:glide-transformations:4.0.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
 
+    implementation project(':libnetwork')
+    implementation project(':libcommon')
 
 
 

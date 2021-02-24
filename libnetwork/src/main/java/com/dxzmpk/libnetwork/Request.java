@@ -1,6 +1,7 @@
 package com.dxzmpk.libnetwork;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -11,6 +12,7 @@ import androidx.arch.core.executor.ArchTaskExecutor;
 //import com.dxzmpk.libnetwork.cache.CacheManager;
 
 
+import com.alibaba.fastjson.JSON;
 import com.dxzmpk.libnetwork.cache.CacheManager;
 
 import org.jetbrains.annotations.NotNull;
@@ -204,6 +206,7 @@ public abstract class Request<T, R extends com.dxzmpk.libnetwork.Request> implem
         com.dxzmpk.libnetwork.Convert convert = com.dxzmpk.libnetwork.ApiService.sConvert;
         try {
             String content = response.body().string();
+
             if (success) {
                 if (callback != null) {
                     ParameterizedType type = (ParameterizedType) callback.getClass().getGenericSuperclass();

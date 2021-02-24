@@ -23,7 +23,7 @@ public abstract class AbsViewModel<T> extends ViewModel {
     public AbsViewModel() {
 
         config = new PagedList.Config.Builder()
-                .setPageSize(3)
+                .setPageSize(5)
                 .setInitialLoadSizeHint(5)
                 .build();
 

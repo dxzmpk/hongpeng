@@ -10,9 +10,8 @@ public class JsonConvert implements Convert {
     @Override
     public Object convert(String response, Type type) {
         JSONObject jsonObject = JSON.parseObject(response);
-        JSONObject data = jsonObject.getJSONObject("data");
-        if (data != null) {
-            Object data1 = data.get("data");
+        if (jsonObject != null) {
+            Object data1 = jsonObject.get("data");
             return JSON.parseObject(data1.toString(), type);
         }
         return null;
