@@ -1,12 +1,15 @@
 package com.dxzmpk.hongpeng.ui.home;
 
+import android.annotation.SuppressLint;
 import android.os.Build;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.arch.core.executor.ArchTaskExecutor;
 import androidx.lifecycle.MutableLiveData;
 import androidx.paging.DataSource;
+import androidx.paging.ItemKeyedDataSource;
 import androidx.paging.PageKeyedDataSource;
 import androidx.paging.PagedList;
 
@@ -24,9 +27,11 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class HomeViewModel extends AbsViewModel<Activity> {
 
-//    private volatile boolean witchCache = true;
-//    private MutableLiveData<PagedList<Activity>> cacheLiveData = new MutableLiveData<>();
-//    private AtomicBoolean loadAfter = new AtomicBoolean(false);
+    private volatile boolean witchCache = true;
+    private MutableLiveData<PagedList<Activity>> cacheLiveData = new MutableLiveData<>();
+    private AtomicBoolean loadAfter = new AtomicBoolean(false);
+
+
 
     public HomeViewModel() {
     }
@@ -54,6 +59,10 @@ public class HomeViewModel extends AbsViewModel<Activity> {
         @Override
         public void loadAfter(@NonNull LoadParams<Integer> params, @NonNull LoadCallback<Integer, Activity> callback) {
             List<Activity> data = loadData(params.key, params.requestedLoadSize, null, null);
+            if (data.size() <= params.requestedLoadSize) {
+                callback.onResult(data, null);
+                return;
+            }
             callback.onResult(data, params.key + 1);
         }
     }
@@ -76,7 +85,27 @@ public class HomeViewModel extends AbsViewModel<Activity> {
         return data;
     }
 
+    @SuppressLint("RestrictedApi")
+    public void loadAfter(int id, ItemKeyedDataSource.LoadCallback<Activity> callback) {
+        if (loadAfter.get()) {
+            callback.onResult(Collections.emptyList());
+            return;
+        }
+        ArchTaskExecutor.getIOThreadExecutor().execute(new Runnable() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void run() {
+                List<Activity> activities = loadData(id, config.pageSize, null, null);
+                callback.onResult(activities);
+            }
+        });
+    }
+
     private static final String TAG = "HomeViewModel";
+
+    public MutableLiveData<PagedList<Activity>> getCacheLiveData() {
+        return cacheLiveData;
+    }
 }
 
 

@@ -19,15 +19,24 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.dxzmpk.hongpeng.R;
 import com.dxzmpk.hongpeng.databinding.LayoutListViewBinding;
+import com.dxzmpk.libcommon.view.EmptyView;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.constant.RefreshState;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
-public abstract class AbsListFragment<T, M extends AbsViewModel<T>> extends Fragment {
+public abstract class AbsListFragment<T, M extends AbsViewModel<T>> extends Fragment implements OnRefreshListener, OnLoadMoreListener {
 
     protected LayoutListViewBinding binding;
 
     protected RecyclerView mRecyclerView;
+
+    protected SmartRefreshLayout mRefreshLayout;
+
+    protected EmptyView mEmptyView;
 
     protected PagedListAdapter<T, RecyclerView.ViewHolder> adapter;
 
@@ -41,6 +50,15 @@ public abstract class AbsListFragment<T, M extends AbsViewModel<T>> extends Frag
         binding = LayoutListViewBinding.inflate(inflater, container, false);
         binding.getRoot().setFitsSystemWindows(true);
         mRecyclerView = binding.recyclerView;
+        mRefreshLayout = binding.refreshLayout;
+        mEmptyView = binding.emptyView;
+
+        mRefreshLayout.setEnableRefresh(true);
+        mRefreshLayout.setEnableLoadMore(true);
+        mRefreshLayout.setOnRefreshListener(this);
+        mRefreshLayout.setOnLoadMoreListener(this);
+
+
 
         adapter = getAdapter();
         mRecyclerView.setAdapter(adapter);
@@ -74,7 +92,8 @@ public abstract class AbsListFragment<T, M extends AbsViewModel<T>> extends Frag
             mViewModel.getPageData().observe(getViewLifecycleOwner(), pagedList -> submitList(pagedList));
 
             //监听分页时有无更多数据,以决定是否关闭上拉加载的动画
-//            mViewModel.getBoundaryPageData().observe(getViewLifecycleOwner(), hasData -> finishRefresh(hasData));
+            mViewModel.getBoundaryPageData().observe(
+                    getViewLifecycleOwner(), hasData -> finishRefresh(hasData));
         }
     }
 
@@ -84,9 +103,26 @@ public abstract class AbsListFragment<T, M extends AbsViewModel<T>> extends Frag
         if (result.size() > 0) {
             adapter.submitList(result);
         }
-//        finishRefresh(result.size() > 0);
+        finishRefresh(result.size() > 0);
     }
 
 
     public abstract PagedListAdapter getAdapter();
+
+    public void finishRefresh(boolean hasData) {
+        PagedList<T> currentList = adapter.getCurrentList();
+        hasData = hasData || currentList != null && currentList.size() > 0;
+        RefreshState state = mRefreshLayout.getState();
+        if (state.isFooter && state.isOpening) {
+            mRefreshLayout.finishLoadMore();
+        } else if (state.isHeader && state.isOpening) {
+            mRefreshLayout.finishRefresh();
+        }
+
+        if (hasData) {
+            mEmptyView.setVisibility(View.GONE);
+        } else {
+            mEmptyView.setVisibility(View.VISIBLE);
+        }
+    }
 }

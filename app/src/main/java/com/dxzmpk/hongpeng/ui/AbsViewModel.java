@@ -23,8 +23,8 @@ public abstract class AbsViewModel<T> extends ViewModel {
     public AbsViewModel() {
 
         config = new PagedList.Config.Builder()
-                .setPageSize(3)
-                .setInitialLoadSizeHint(3)
+                .setPageSize(5)
+                .setInitialLoadSizeHint(5)
                 .build();
 
         pageData = new LivePagedListBuilder(factory, config)
@@ -47,6 +47,7 @@ public abstract class AbsViewModel<T> extends ViewModel {
 
 
     private static final String TAG = "AbsViewModel";
+
     PagedList.BoundaryCallback<T> callback = new PagedList.BoundaryCallback<T>() {
         @Override
         // 当没有数据从DataSource加载到PagedList中时
