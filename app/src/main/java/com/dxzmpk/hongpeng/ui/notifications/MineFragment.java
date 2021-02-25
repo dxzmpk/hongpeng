@@ -13,18 +13,20 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.dxzmpk.hongpeng.R;
+import com.dxzmpk.libnavannotation.FragmentDestination;
 
-public class NotificationsFragment extends Fragment {
+@FragmentDestination(pageUrl = "mine")
+public class MineFragment extends Fragment {
 
-    private NotificationsViewModel notificationsViewModel;
+    private MineViewModel mineViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        notificationsViewModel =
-                new ViewModelProvider(this).get(NotificationsViewModel.class);
+        mineViewModel =
+                new ViewModelProvider(this).get(MineViewModel.class);
         View root = inflater.inflate(R.layout.fragment_notifications, container, false);
         final TextView textView = root.findViewById(R.id.text_notifications);
-        notificationsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        mineViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);

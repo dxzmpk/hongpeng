@@ -25,7 +25,7 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 
 import java.util.List;
 
-@FragmentDestination(pageUrl = "main/dash")
+@FragmentDestination(pageUrl = "course")
 public class CourseFragment extends AbsListFragment<Course, CourseViewModel> {
 
     private CourseViewModel courseViewModel;

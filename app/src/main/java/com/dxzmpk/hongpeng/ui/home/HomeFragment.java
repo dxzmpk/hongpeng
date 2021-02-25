@@ -21,10 +21,12 @@ import com.dxzmpk.hongpeng.model.Activity;
 import com.dxzmpk.hongpeng.ui.AbsListFragment;
 import com.dxzmpk.hongpeng.ui.AbsViewModel;
 import com.dxzmpk.hongpeng.ui.MutablePageKeyedDataSource;
+import com.dxzmpk.libnavannotation.FragmentDestination;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 
 import java.util.List;
 
+@FragmentDestination(pageUrl = "home", asStarter = true)
 public class HomeFragment extends AbsListFragment<Activity, HomeViewModel> {
 
     private HomeViewModel homeViewModel;
@@ -48,6 +50,14 @@ public class HomeFragment extends AbsListFragment<Activity, HomeViewModel> {
                 submitList(activities);
             }
         });
+    }
+
+    private static final String TAG = "HomeFragment";
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Log.e(TAG, "onCreate: ");
     }
 
     @Override
