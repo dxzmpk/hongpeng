@@ -21,7 +21,7 @@ import com.google.android.material.bottomnavigation.LabelVisibilityMode;
 import java.util.List;
 
 public class AppBottomBar extends BottomNavigationView {
-    private static int[] sIcons = new int[]{R.drawable.ic_home_black_24dp, R.drawable.ic_dashboard_black_24dp, R.drawable.ic_notifications_black_24dp};
+    private static int[] sIcons = new int[]{R.drawable.ic_home_black_24dp, R.drawable.ic_dashboard_black_24dp, R.drawable.icon_tab_mine};
     private BottomBar config;
 
     public AppBottomBar(Context context) {

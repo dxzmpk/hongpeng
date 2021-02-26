@@ -13,7 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Nav_raw"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.actdetail.ActDetailActivity">
+        <activity android:name=".ui.actdetail.ActDetailActivity"
+            android:launchMode="singleTop">
             
         </activity>
         <activity
