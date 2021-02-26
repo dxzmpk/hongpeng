@@ -3,24 +3,34 @@ package com.dxzmpk.hongpeng.ui.actdetail;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.icu.util.MeasureUnit;
 import android.os.Bundle;
+import android.util.TypedValue;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.dxzmpk.hongpeng.R;
+import com.dxzmpk.hongpeng.databinding.ActDetailActivityBinding;
 import com.dxzmpk.hongpeng.databinding.ActionbarTitleBinding;
+import com.dxzmpk.hongpeng.databinding.LayoutActDetailBinding;
 import com.dxzmpk.hongpeng.model.ActivityReturn;
+import com.google.android.exoplayer2.text.Cue;
 import com.youth.banner.Banner;
 import com.youth.banner.adapter.BannerImageAdapter;
 import com.youth.banner.holder.BannerImageHolder;
 import com.youth.banner.indicator.CircleIndicator;
+
+import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -29,6 +39,8 @@ public class ActDetailActivity extends AppCompatActivity {
     private static final String KEY_FEED = "key_feed";
 
     private ActDetailViewModel mViewModel;
+
+    private ActDetailActivityBinding detailBinding;
 
     // 这里是为了方便别的用户使用startActivity进行传参，可以学习这种方式，提高代码的可复用性。
     public static void startFeedDetailActivity(Context context, ActivityReturn activityReturn) {
@@ -42,11 +54,17 @@ public class ActDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(ActDetailViewModel.class);
         setTheme(R.style.Theme_WithActionBar);
-        setContentView(R.layout.act_detail_activity);
-
+        detailBinding = DataBindingUtil.setContentView(this, R.layout.act_detail_activity);
         ActivityReturn activityReturn = (ActivityReturn) getIntent().getSerializableExtra(KEY_FEED);
-        inflateActionBar(activityReturn.getActivity().getTitle());
+        changeDetailView(activityReturn);
+    }
+
+    private void changeDetailView(ActivityReturn activityReturn){
+        inflateActionBar("活动");
         useBanner(activityReturn.getPicList());
+        detailBinding.setAct(activityReturn.getActivity());
+        detailBinding.actTitleFather.actTitleTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25);
+        detailBinding.actTitleFather.actTitleDate.setVisibility(View.GONE);
     }
 
     private void inflateActionBar(String subTitle) {
@@ -55,11 +73,22 @@ public class ActDetailActivity extends AppCompatActivity {
         binding.setTitle(subTitle);
         actionBar.setCustomView(binding.getRoot());
         actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        binding.actDetailBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
     public void useBanner(List<String> pics) {
 
-        Banner banner = findViewById(R.id.banner);
+        Banner banner = detailBinding.banner;
+
+        if (pics.size() == 0) {
+            pics.add("1614321400934.jpg");
+        }
+
 
         //--------------------------简单使用-------------------------------
         banner.addBannerLifecycleObserver(this)//添加生命周期观察者

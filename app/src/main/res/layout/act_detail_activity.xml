@@ -1,22 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
+        <variable
+            name="act"
+            type="com.dxzmpk.hongpeng.model.Activity" />
+
     </data>
 
-    <FrameLayout
+    <LinearLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context="com.dxzmpk.hongpeng.ui.actdetail.ActDetailActivity">
+        android:layout_height="wrap_content"
+        tools:context="com.dxzmpk.hongpeng.ui.actdetail.ActDetailActivity"
+        android:orientation="vertical">
 
         <com.youth.banner.Banner xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/banner"
             android:layout_width="match_parent"
             android:layout_height="300dp" />
 
+        <include
+            android:id="@+id/act_title_father"
+            layout="@layout/layout_act_title"
+            app:title="@{act.title}"
+            app:isOnline="@{act.isOnline}"
+            app:date="@{act.createTime}"/>
 
-    </FrameLayout>
+        <include layout="@layout/layout_act_detail"
+            app:reading="@{act.reading}"
+            app:price="@{act.price}"/>
+
+        <TextView
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="16dp"
+            android:textSize="18sp"
+            android:text="@{act.content}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
 </layout>

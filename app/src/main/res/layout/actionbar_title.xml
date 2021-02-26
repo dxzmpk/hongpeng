@@ -13,6 +13,19 @@
         android:layout_height="match_parent">
 
         <TextView
+            android:id="@+id/act_detail_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="返回"
+            android:padding="2sp"
+            android:textSize="15sp"
+            android:background="@color/color_gray"
+            android:gravity="center_vertical"
+            android:layout_centerVertical="true"
+            android:textColor="@color/color_666"
+            />
+
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="@{title + `详情`}"
