@@ -174,11 +174,11 @@ public abstract class Request<T, R extends com.dxzmpk.libnetwork.Request> implem
                 @Override
                 public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                     ApiResponse<T> result = parseResponse(response, callback);// 这一步parseResponse会保存缓存
-                    if (!result.success) {
-                        callback.onError(result);
-                    } else {
+//                    if (!result.success) {
+//                        callback.onError(result);
+//                    } else {
                         callback.onSuccess(result);
-                    }
+//                    }
                 }
             });
         }

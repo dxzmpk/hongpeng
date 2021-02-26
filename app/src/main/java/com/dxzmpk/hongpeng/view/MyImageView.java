@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,16 +23,21 @@ import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 public class MyImageView extends AppCompatImageView {
 
 
+    private Context context;
+
     public MyImageView(@NonNull Context context) {
         super(context);
+        this.context = context;
     }
 
     public MyImageView(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+        this.context = context;
     }
 
     public MyImageView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        this.context = context;
     }
 
     public void bindData(String imageUrl) {
@@ -44,6 +50,15 @@ public class MyImageView extends AppCompatImageView {
         Glide.with(this).load(imageUrl).into(new SimpleTarget<Drawable>() {
             @Override
             public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                setScaleType(ScaleType.CENTER_CROP);
+                WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+                int width = windowManager.getDefaultDisplay().getWidth();
+                int height = windowManager.getDefaultDisplay().getHeight();
+
+                setAdjustViewBounds(true);
+                setMaxWidth(width);
+                setMaxHeight(width*2);
+
                 setImageDrawable(resource);
             }
         });

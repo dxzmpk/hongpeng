@@ -1,5 +1,6 @@
 package com.dxzmpk.hongpeng.model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -10,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Activity {
+public class Activity implements Serializable {
     private String actId;
 
     private String courseId;

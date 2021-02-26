@@ -20,13 +20,13 @@
             android:id="@+id/my_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="5dp"/>
+            android:layout_marginBottom="10dp" />
 
         <include
             layout="@layout/layout_act_title"
             app:title="@{act.title}"
-            app:isOnline="@{act.isOnline}"/>
+            app:isOnline="@{act.isOnline}"
+            app:date="@{act.createTime}"/>
 
         <include layout="@layout/layout_act_detail"
             app:reading="@{act.reading}"
