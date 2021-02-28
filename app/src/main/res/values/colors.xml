@@ -25,4 +25,5 @@
     <color name="color_3d3">#3d3d3d</color>
     <color name="color_divider">#f2f2f2</color>
     <color name="transparent">@android:color/transparent</color>
+    <color name="blue">#1C89D4</color>
 </resources>

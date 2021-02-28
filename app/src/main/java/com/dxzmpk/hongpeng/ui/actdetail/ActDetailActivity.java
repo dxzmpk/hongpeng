@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.paging.PagedList;
 
 import android.content.Context;
 import android.content.Intent;
@@ -27,6 +28,11 @@ import com.dxzmpk.hongpeng.databinding.LayoutActDetailBinding;
 import com.dxzmpk.hongpeng.model.ActivityReturn;
 import com.dxzmpk.libnetwork.ApiService;
 import com.google.android.exoplayer2.text.Cue;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.constant.RefreshState;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.youth.banner.Banner;
 import com.youth.banner.adapter.BannerImageAdapter;
 import com.youth.banner.holder.BannerImageHolder;
@@ -36,13 +42,17 @@ import org.w3c.dom.Text;
 
 import java.util.List;
 
-public class ActDetailActivity extends AppCompatActivity {
+public class ActDetailActivity extends AppCompatActivity implements OnRefreshListener, OnLoadMoreListener {
 
     private static final String KEY_FEED = "key_feed";
 
     private ActDetailViewModel mViewModel;
 
     private ActDetailActivityBinding detailBinding;
+
+    SmartRefreshLayout mRefreshLayout;
+
+    String actId;
 
     // 这里是为了方便别的用户使用startActivity进行传参，可以学习这种方式，提高代码的可复用性。
     public static void startFeedDetailActivity(Context context, String actId) {
@@ -56,8 +66,16 @@ public class ActDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(ActDetailViewModel.class);
         setTheme(R.style.Theme_WithActionBar);
+
         detailBinding = DataBindingUtil.setContentView(this, R.layout.act_detail_activity);
-        String actId = (String) getIntent().getSerializableExtra(KEY_FEED);
+
+        mRefreshLayout = detailBinding.refreshLayout;
+        mRefreshLayout.setEnableRefresh(true);
+        mRefreshLayout.setEnableLoadMore(true);
+        mRefreshLayout.setOnRefreshListener(this);
+        mRefreshLayout.setOnLoadMoreListener(this);
+
+        actId = (String) getIntent().getSerializableExtra(KEY_FEED);
         mViewModel.getActivityReturn(actId);
         mViewModel.getActivityReturnLiveData().observe(this, new Observer<ActivityReturn>() {
             @Override
@@ -116,5 +134,25 @@ public class ActDetailActivity extends AppCompatActivity {
 
         }).addBannerLifecycleObserver(this)
         .setIndicator(new CircleIndicator(this));
+    }
+
+    @Override
+    public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+        finishRefresh();
+    }
+
+    @Override
+    public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+        mViewModel.getActivityReturn(actId);
+        finishRefresh();
+    }
+
+    public void finishRefresh() {
+        RefreshState state = mRefreshLayout.getState();
+        if (state.isFooter && state.isOpening) {
+            mRefreshLayout.finishLoadMore();
+        } else if (state.isHeader && state.isOpening) {
+            mRefreshLayout.finishRefresh();
+        }
     }
 }

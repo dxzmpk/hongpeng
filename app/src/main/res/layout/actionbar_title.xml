@@ -22,7 +22,7 @@
             android:background="@color/color_gray"
             android:gravity="center_vertical"
             android:layout_centerVertical="true"
-            android:textColor="@color/color_666"
+            android:textColor="@color/blue"
             />
 
         <TextView
