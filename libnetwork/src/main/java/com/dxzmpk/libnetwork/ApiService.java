@@ -22,6 +22,10 @@ public class ApiService {
     protected static String sBaseUrl;
     protected static com.dxzmpk.libnetwork.Convert sConvert;
 
+    public static String getsBaseUrl() {
+        return sBaseUrl;
+    }
+
     static {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);

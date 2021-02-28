@@ -72,7 +72,6 @@ public class ActAdapter extends PagedListAdapter<Activity, ActAdapter.ViewHolder
         }
 
         public void bindData(Activity item) {
-
             mBinding.setVariable(BR.act, item);
             mBinding.myImage.bindData(item.getShowPic());
 
@@ -100,18 +99,7 @@ public class ActAdapter extends PagedListAdapter<Activity, ActAdapter.ViewHolder
         holder.itemView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Request request = ApiService.get("/activity/getById")
-                        .addParam("actId", activity.getActId())
-                        .responseType(new TypeReference<ActivityReturn>(){}.getType());
-                request.cacheStrategy(Request.NET_ONLY);
-                request.execute(new JsonCallback<ActivityReturn>() {
-                    @Override
-                    public void onSuccess(ApiResponse response) {
-                        ActivityReturn data = (ActivityReturn) response.body;
-                        ActDetailActivity.startFeedDetailActivity(mContext, data);
-                    }
-                });
-
+                ActDetailActivity.startFeedDetailActivity(mContext, activity.getActId());
             }
         });
     }

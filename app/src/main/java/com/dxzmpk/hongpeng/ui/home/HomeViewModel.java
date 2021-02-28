@@ -80,7 +80,7 @@ public class HomeViewModel extends AbsViewModel<Activity> {
         request.cacheStrategy(Request.NET_ONLY);
         ApiResponse<List<Activity>> response = request.execute();
         List<Activity> data = response.body == null? Collections.emptyList() : response.body;
-        data.forEach((x)->x.setShowPic("http://192.168.0.105:8083/files/" + x.getShowPic()));
+        data.forEach((x)->x.setShowPic(ApiService.getsBaseUrl() + "/files/" + x.getShowPic()));
         Log.e(TAG, "loadData: data Loaded pageIndex = " + pageIndex);
         return data;
     }

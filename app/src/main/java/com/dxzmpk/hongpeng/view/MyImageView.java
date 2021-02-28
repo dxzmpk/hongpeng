@@ -17,6 +17,7 @@ import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.dxzmpk.libcommon.utils.PixUtils;
 
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
@@ -51,9 +52,11 @@ public class MyImageView extends AppCompatImageView {
             @Override
             public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
                 setScaleType(ScaleType.CENTER_CROP);
-                WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-                int width = windowManager.getDefaultDisplay().getWidth();
-                int height = windowManager.getDefaultDisplay().getHeight();
+//                WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+//                int width = windowManager.getDefaultDisplay().getWidth();
+//                int height = windowManager.getDefaultDisplay().getHeight();
+
+                int width = PixUtils.getScreenWidth();
 
                 setAdjustViewBounds(true);
                 setMaxWidth(width);

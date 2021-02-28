@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Context;
@@ -24,6 +25,7 @@ import com.dxzmpk.hongpeng.databinding.ActDetailActivityBinding;
 import com.dxzmpk.hongpeng.databinding.ActionbarTitleBinding;
 import com.dxzmpk.hongpeng.databinding.LayoutActDetailBinding;
 import com.dxzmpk.hongpeng.model.ActivityReturn;
+import com.dxzmpk.libnetwork.ApiService;
 import com.google.android.exoplayer2.text.Cue;
 import com.youth.banner.Banner;
 import com.youth.banner.adapter.BannerImageAdapter;
@@ -43,9 +45,9 @@ public class ActDetailActivity extends AppCompatActivity {
     private ActDetailActivityBinding detailBinding;
 
     // 这里是为了方便别的用户使用startActivity进行传参，可以学习这种方式，提高代码的可复用性。
-    public static void startFeedDetailActivity(Context context, ActivityReturn activityReturn) {
+    public static void startFeedDetailActivity(Context context, String actId) {
         Intent intent = new Intent(context, ActDetailActivity.class);
-        intent.putExtra(KEY_FEED, activityReturn);
+        intent.putExtra(KEY_FEED, actId);
         context.startActivity(intent);
     }
 
@@ -55,8 +57,14 @@ public class ActDetailActivity extends AppCompatActivity {
         mViewModel = new ViewModelProvider(this).get(ActDetailViewModel.class);
         setTheme(R.style.Theme_WithActionBar);
         detailBinding = DataBindingUtil.setContentView(this, R.layout.act_detail_activity);
-        ActivityReturn activityReturn = (ActivityReturn) getIntent().getSerializableExtra(KEY_FEED);
-        changeDetailView(activityReturn);
+        String actId = (String) getIntent().getSerializableExtra(KEY_FEED);
+        mViewModel.getActivityReturn(actId);
+        mViewModel.getActivityReturnLiveData().observe(this, new Observer<ActivityReturn>() {
+            @Override
+            public void onChanged(ActivityReturn activityReturn) {
+                changeDetailView(activityReturn);
+            }
+        });
     }
 
     private void changeDetailView(ActivityReturn activityReturn){
@@ -101,7 +109,7 @@ public class ActDetailActivity extends AppCompatActivity {
                 //图片加载自己实现
                 holder.imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
                 Glide.with(holder.itemView)
-                        .load("http://192.168.0.105:8083/files/" + data)
+                        .load(ApiService.getsBaseUrl() + "/files/" + data)
                         .apply(RequestOptions.bitmapTransform(new RoundedCorners(30)))
                         .into(holder.imageView);
             }
