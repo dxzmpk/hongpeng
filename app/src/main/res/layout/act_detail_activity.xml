@@ -6,62 +6,72 @@
     <data>
 
         <variable
-            name="act"
-            type="com.dxzmpk.hongpeng.model.Activity" />
+            name="actReturn"
+            type="com.dxzmpk.hongpeng.model.ActivityReturn" />
 
     </data>
 
 
 
-        <com.scwang.smartrefresh.layout.SmartRefreshLayout
-            android:id="@+id/refresh_layout"
+<!--        <com.scwang.smartrefresh.layout.SmartRefreshLayout-->
+<!--            android:id="@+id/refresh_layout"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent">-->
+
+<!--            <com.scwang.smartrefresh.layout.header.BezierRadarHeader-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"></com.scwang.smartrefresh.layout.header.BezierRadarHeader>-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+
+        <LinearLayout
+            android:id="@+id/container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            tools:context="com.dxzmpk.hongpeng.ui.actdetail.ActDetailActivity"
+            android:orientation="vertical">
 
-            <com.scwang.smartrefresh.layout.header.ClassicsHeader
+            <com.youth.banner.Banner xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/banner"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"></com.scwang.smartrefresh.layout.header.ClassicsHeader>
+                android:layout_height="300dp" />
 
-                <LinearLayout
-                    android:id="@+id/container"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    tools:context="com.dxzmpk.hongpeng.ui.actdetail.ActDetailActivity"
-                    android:orientation="vertical">
+            <include
+                android:id="@+id/act_title_father"
+                layout="@layout/layout_act_title"
+                app:title="@{actReturn.activity.title}"
+                app:isOnline="@{actReturn.activity.isOnline}"
+                app:date="@{actReturn.activity.createTime}"/>
 
-                    <com.youth.banner.Banner xmlns:app="http://schemas.android.com/apk/res-auto"
-                        android:id="@+id/banner"
-                        android:layout_width="match_parent"
-                        android:layout_height="300dp" />
+            <include layout="@layout/layout_act_detail"
+                app:reading="@{actReturn.activity.reading}"
+                app:price="@{actReturn.activity.price}"/>
 
-                    <include
-                        android:id="@+id/act_title_father"
-                        layout="@layout/layout_act_title"
-                        app:title="@{act.title}"
-                        app:isOnline="@{act.isOnline}"
-                        app:date="@{act.createTime}"/>
-
-                    <include layout="@layout/layout_act_detail"
-                        app:reading="@{act.reading}"
-                        app:price="@{act.price}"/>
-
-                    <TextView
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginEnd="16dp"
-                        android:textSize="18sp"
-                        android:text="@{act.content}"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-
-                </LinearLayout>
-
-            <com.scwang.smartrefresh.layout.footer.ClassicsFooter
+            <TextView
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="16dp"
+                android:textSize="18sp"
+                android:text="@{actReturn.activity.content}"
+                android:hint="活动内容区域"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"></com.scwang.smartrefresh.layout.footer.ClassicsFooter>
+                android:layout_height="wrap_content"/>
 
-        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+        </LinearLayout>
+
+
+    </LinearLayout>
+<!--            <com.scwang.smartrefresh.layout.footer.ClassicsFooter-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"></com.scwang.smartrefresh.layout.footer.ClassicsFooter>-->
+
+<!--        </com.scwang.smartrefresh.layout.SmartRefreshLayout>-->
 
 
 </layout>

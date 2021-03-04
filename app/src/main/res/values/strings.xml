@@ -5,4 +5,7 @@
     <string name="title_notifications">我的</string>
     <string name="act_online">线上</string>
     <string name="act_offline">线下</string>
+    <string name="feed_detil_hint">只有登录后才能评论哦</string>
+    <string name="share">分享</string>
+    <string name="author">作者</string>
 </resources>

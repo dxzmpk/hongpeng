@@ -1,5 +1,6 @@
 package com.dxzmpk.hongpeng.view;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
@@ -65,6 +66,28 @@ public class MyImageView extends AppCompatImageView {
                 setImageDrawable(resource);
             }
         });
+    }
+
+
+    @BindingAdapter(value = {"image_url", "isCircle"})
+    public static void setImageUrl(MyImageView view, String imageUrl, boolean isCircle) {
+        setImageUrl(view, imageUrl, isCircle, 0);
+    }
+
+    @SuppressLint("CheckResult")
+    @BindingAdapter(value = {"image_url", "isCircle", "radius"}, requireAll = false)
+    public static void setImageUrl(MyImageView view, String imageUrl, boolean isCircle, int radius) {
+        RequestBuilder<Drawable> builder = Glide.with(view).load(imageUrl);
+        if (isCircle) {
+            builder.transform(new CircleCrop());
+        } else if (radius > 0) {
+            builder.transform(new RoundedCornersTransformation(PixUtils.dp2px(radius), 0));
+        }
+        ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
+        if (layoutParams != null && layoutParams.width > 0 && layoutParams.height > 0) {
+            builder.override(layoutParams.width, layoutParams.height);
+        }
+        builder.into(view);
     }
 
 

@@ -33,6 +33,7 @@
             android:layout_marginBottom="10dp"
             android:gravity="center_vertical"
             android:paddingTop="0dp"
+            android:hint="标题、线上线下"
             android:paddingBottom="0dp"
             android:textColor="@color/color_2f2"
             android:textSize="15sp"

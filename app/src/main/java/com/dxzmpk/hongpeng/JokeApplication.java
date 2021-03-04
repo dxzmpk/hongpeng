@@ -4,6 +4,9 @@ import android.app.Application;
 
 import com.dxzmpk.libnetwork.ApiService;
 
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+
 
 /**
  * 咱们的服务器已经部署到公网了.
@@ -17,6 +20,6 @@ public class JokeApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        ApiService.init("http://192.168.1.15:8083", null);
+        ApiService.init("http://172.20.103.221:8083", null);
     }
 }

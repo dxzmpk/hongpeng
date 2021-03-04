@@ -109,34 +109,3 @@ public class HomeViewModel extends AbsViewModel<Activity> {
 }
 
 
-
-//class ActDataSource extends ItemKeyedDataSource<Integer, Activity> {
-//
-//    @RequiresApi(api = Build.VERSION_CODES.N)
-//    @Override
-//    public void loadInitial(@NonNull LoadInitialParams<Integer> params, @NonNull LoadInitialCallback<Activity> callback) {
-//        Log.e(TAG, "loadInitial DATASOURCE");
-//        loadData(-1, params.requestedLoadSize, null, null, callback);
-//        witchCache = false;
-//    }
-//
-//    @RequiresApi(api = Build.VERSION_CODES.N)
-//    @Override
-//    public void loadAfter(@NonNull LoadParams<Integer> params, @NonNull LoadCallback<Activity> callback) {
-//        Log.e(TAG, "loadAfter DATASOURCE");
-//        loadData(-1, params.requestedLoadSize, null, null, callback);
-//    }
-//
-//    @Override
-//    // 进入页面的时候加载第三页，向前加载第一页使用
-//    public void loadBefore(@NonNull LoadParams<Integer> params, @NonNull LoadCallback<Activity> callback) {
-//        Log.e(TAG, "loadBefore DATASOURCE");
-//        callback.onResult(Collections.emptyList());
-//    }
-//
-//    @NonNull
-//    @Override
-//    public Integer getKey(@NonNull Activity item) {
-//        return Integer.valueOf(item.getActId());
-//    }
-//}

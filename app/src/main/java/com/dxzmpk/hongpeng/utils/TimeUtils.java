@@ -1,9 +1,11 @@
 package com.dxzmpk.hongpeng.utils;
 
 import java.util.Calendar;
+import java.util.Date;
 
 public class TimeUtils {
-    public static String calculate(long time) {
+    public static String calculate(Date date) {
+        long time = date.getTime();
         long timeInMillis = Calendar.getInstance().getTimeInMillis();
 
         //兼容脏数据。抓取的数据有些帖子的时间戳不是标准的十三位
