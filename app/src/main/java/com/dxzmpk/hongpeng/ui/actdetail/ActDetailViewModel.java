@@ -62,20 +62,19 @@ public class ActDetailViewModel extends AbsViewModel<Comments> {
             callback.onResult(comments, null, 2);
         }
 
-        @RequiresApi(api = Build.VERSION_CODES.N)
         @Override
         public void loadBefore(@NonNull LoadParams<Integer> params, @NonNull LoadCallback<Integer, Comments> callback) {
+        }
+
+        @RequiresApi(api = Build.VERSION_CODES.N)
+        @Override
+        public void loadAfter(@NonNull LoadParams<Integer> params, @NonNull LoadCallback<Integer, Comments> callback) {
             List<Comments> data = loadData(params.requestedLoadSize, params.key, actId);
             if (data.size() <= params.requestedLoadSize) {
                 callback.onResult(data, null);
                 return;
             }
             callback.onResult(data, params.key + 1);
-        }
-
-        @Override
-        public void loadAfter(@NonNull LoadParams<Integer> params, @NonNull LoadCallback<Integer, Comments> callback) {
-
         }
 
         @RequiresApi(api = Build.VERSION_CODES.N)

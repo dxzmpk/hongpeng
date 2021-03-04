@@ -60,7 +60,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:text="@{`发布时间：`+date.year + `年` + date.month +`月`}"
+            android:text="@{`发布时间：`+ String.valueOf(1900 + date.year) + `年` + String.valueOf(date.month + 1) +`月`}"
             android:paddingTop="0dp"
             android:paddingBottom="0dp"
             android:textColor="@color/color_2f2"

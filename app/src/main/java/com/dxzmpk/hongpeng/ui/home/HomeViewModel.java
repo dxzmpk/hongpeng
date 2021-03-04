@@ -59,10 +59,10 @@ public class HomeViewModel extends AbsViewModel<Activity> {
         @Override
         public void loadAfter(@NonNull LoadParams<Integer> params, @NonNull LoadCallback<Integer, Activity> callback) {
             List<Activity> data = loadData(params.key, params.requestedLoadSize, null, null);
-            if (data.size() <= params.requestedLoadSize) {
-                callback.onResult(data, null);
-                return;
-            }
+//            if (data.size() <= params.requestedLoadSize) {
+//                callback.onResult(data, null);
+//                return;
+//            }
             callback.onResult(data, params.key + 1);
         }
     }
