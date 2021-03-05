@@ -19,7 +19,8 @@
 
         <include
             android:id="@+id/action_bar"
-            layout="@layout/actionbar_title" />
+            layout="@layout/actionbar_title"
+            app:title="@{`活动详情`}"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"

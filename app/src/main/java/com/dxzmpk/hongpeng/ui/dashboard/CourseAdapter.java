@@ -16,11 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.dxzmpk.hongpeng.BR;
 import com.dxzmpk.hongpeng.R;
-import com.dxzmpk.hongpeng.databinding.LayoutActBinding;
 import com.dxzmpk.hongpeng.databinding.LayoutCourseBinding;
-import com.dxzmpk.hongpeng.model.Activity;
 import com.dxzmpk.hongpeng.model.Course;
-import com.dxzmpk.hongpeng.ui.home.ActAdapter;
 
 public class CourseAdapter extends PagedListAdapter<Course, CourseAdapter.ViewHolder> {
 
@@ -71,7 +68,7 @@ public class CourseAdapter extends PagedListAdapter<Course, CourseAdapter.ViewHo
         public void bindData(Course item) {
 
             mBinding.setVariable(BR.course, item);
-            mBinding.imageView.bindData(item.getShowPic());
+//            mBinding.imageView.bindData(item.getShowPic());
 
         }
 

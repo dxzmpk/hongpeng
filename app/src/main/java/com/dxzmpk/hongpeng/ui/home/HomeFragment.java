@@ -44,6 +44,11 @@ public class HomeFragment extends AbsListFragment<Activity, HomeViewModel> {
     }
 
     @Override
+    public String getTitle() {
+        return "最新活动";
+    }
+
+    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         mViewModel.getCacheLiveData().observe(getViewLifecycleOwner(), new Observer<PagedList<Activity>>() {
             @Override

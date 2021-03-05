@@ -9,7 +9,12 @@
     <android.widget.LinearLayout
         android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        >
+
+        <include
+            android:id="@+id/action_bar"
+            layout="@layout/actionbar_title" />
 
         <com.scwang.smartrefresh.layout.SmartRefreshLayout
             android:id="@+id/refresh_layout"
@@ -28,6 +33,7 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_view"
+                    android:background="@color/color_divider"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"></androidx.recyclerview.widget.RecyclerView>
 

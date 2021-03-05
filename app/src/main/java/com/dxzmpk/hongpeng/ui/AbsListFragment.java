@@ -58,6 +58,8 @@ public abstract class AbsListFragment<T, M extends AbsViewModel<T>> extends Frag
         mRefreshLayout.setOnRefreshListener(this);
         mRefreshLayout.setOnLoadMoreListener(this);
 
+        binding.actionBar.actDetailBack.setVisibility(View.GONE);
+        binding.actionBar.setTitle(getTitle());
 
 
         adapter = getAdapter();
@@ -73,6 +75,8 @@ public abstract class AbsListFragment<T, M extends AbsViewModel<T>> extends Frag
         genericViewModel();
         return binding.getRoot();
     }
+
+    public abstract String getTitle();
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
