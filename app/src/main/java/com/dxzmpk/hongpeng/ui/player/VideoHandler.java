@@ -15,6 +15,7 @@ import com.dxzmpk.hongpeng.R;
 import com.dxzmpk.hongpeng.databinding.ActivityVideoBinding;
 import com.dxzmpk.hongpeng.model.Activity;
 import com.dxzmpk.hongpeng.ui.actdetail.ActDetailViewModel;
+import com.dxzmpk.libcommon.utils.PixUtils;
 import com.dxzmpk.libnetwork.ApiService;
 import com.google.android.exoplayer2.MediaItem;
 import com.google.android.exoplayer2.SimpleExoPlayer;
@@ -39,7 +40,16 @@ public class VideoHandler {
         mVideoBinding = DataBindingUtil.setContentView(mActivity, R.layout.activity_video);
         mViewModel = ViewModelProviders.of(mActivity).get(VideoViewModel.class);
         playerView = mVideoBinding.playerView;
+        correctPlayerViewHeight();
         validateFullScreenButton();
+    }
+
+    private void correctPlayerViewHeight(){
+        if (mActivity.getRequestedOrientation() == ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE) {
+            playerView.getLayoutParams().height=PixUtils.getScreenHeight();
+        } else {
+            playerView.getLayoutParams().height=PixUtils.getScreenWidth();
+        }
     }
 
     protected void validateFullScreenButton(){

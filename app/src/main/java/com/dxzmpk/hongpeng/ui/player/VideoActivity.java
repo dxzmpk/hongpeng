@@ -46,4 +46,8 @@ public class VideoActivity extends AppCompatActivity {
         handler.pausePlayer();
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
 }
