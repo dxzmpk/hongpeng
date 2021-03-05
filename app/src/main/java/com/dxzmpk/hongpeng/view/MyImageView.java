@@ -19,6 +19,7 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.dxzmpk.libcommon.utils.PixUtils;
+import com.dxzmpk.libnetwork.ApiService;
 
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
@@ -49,6 +50,7 @@ public class MyImageView extends AppCompatImageView {
         } else {
             setVisibility(VISIBLE);
         }
+        imageUrl = ApiService.getsBaseUrl() + "/files/" + imageUrl;
         Glide.with(this).load(imageUrl).into(new SimpleTarget<Drawable>() {
             @Override
             public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
