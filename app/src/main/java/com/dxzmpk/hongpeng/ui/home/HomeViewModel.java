@@ -63,7 +63,7 @@ public class HomeViewModel extends AbsViewModel<Activity> {
         public void loadAfter(@NonNull LoadParams<Integer> params, @NonNull LoadCallback<Integer, Activity> callback) {
             List<Activity> data = loadData(params.key, params.requestedLoadSize, null, null);
 //            这里是因为分页插件在index很大时，依然会显示数据的异常
-            if (data.size() <= params.requestedLoadSize) {
+            if (data.size() < params.requestedLoadSize) {
                 callback.onResult(data, null);
                 return;
             }

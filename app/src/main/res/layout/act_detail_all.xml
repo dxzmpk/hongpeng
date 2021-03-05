@@ -26,13 +26,13 @@
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"></androidx.recyclerview.widget.RecyclerView>
+            android:layout_weight="1" />
 
         <include
             android:id="@+id/layout_interation"
             layout="@layout/layout_interation"
             app:actReturn="@{actReturn}"
-            app:fullscreen="@{false}"></include>
+            app:fullscreen="@{false}" />
 
     </LinearLayout>
 </layout>

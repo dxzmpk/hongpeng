@@ -70,7 +70,7 @@ public class CourseViewModel extends AbsViewModel<Course> {
         @Override
         public void loadAfter(@NonNull LoadParams<Integer> params, @NonNull LoadCallback<Integer, Course> callback) {
             List<Course> data = loadData(params.key, params.requestedLoadSize, null, null);
-            if (data.size() <= params.requestedLoadSize) {
+            if (data.size() < params.requestedLoadSize) {
                 callback.onResult(data, null);
                 return;
             }
