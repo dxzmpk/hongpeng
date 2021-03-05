@@ -13,7 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Nav_raw"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.player.VideoActivity">
+        <activity android:name=".ui.player.VideoActivity"
+            android:theme="@style/Theme.WithOutActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

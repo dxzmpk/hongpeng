@@ -52,10 +52,8 @@ public class VideoHandler {
                 @Override
                 public void onFullScreenModeChanged(boolean isFullScreen) {
                     if(isFullScreen) {
-                        mActivity.setTheme(R.style.Theme_WithActionBar);
                         mActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
                     } else {
-                        mActivity.setTheme(R.style.Theme_Nav_raw);
                         mActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
                     }
                 }
@@ -106,8 +104,19 @@ public class VideoHandler {
         }
     }
 
-    protected void pausePlayer() {
+    public void restorePlayer(Boolean playing) {
+        if (playing) {
+            mViewModel.player.play();
+        } else {
+            mViewModel.player.pause();
+        }
+    }
+
+    public void pausePlayer() {
         mViewModel.player.pause();
     }
 
+    public boolean isPlaying() {
+        return mViewModel.player.isPlaying();
+    }
 }
