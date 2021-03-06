@@ -63,6 +63,7 @@ public class VideoHandler {
                 public void onFullScreenModeChanged(boolean isFullScreen) {
                     if(isFullScreen) {
                         mActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
                     } else {
                         mActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
                     }
@@ -71,6 +72,7 @@ public class VideoHandler {
             Field field1 = StyledPlayerControlView.class.getDeclaredField("fullScreenButton");
             field1.setAccessible(true);
             ImageView fullScreenButton = (ImageView) field1.get(controlView);
+            // make full screen button visible
             fullScreenButton.setVisibility(View.VISIBLE);
             Field field2 = StyledPlayerControlView.class.getDeclaredField("isFullScreen");
             field2.setAccessible(true);
@@ -80,7 +82,7 @@ public class VideoHandler {
         }
     }
 
-    protected void createOrResumePlayer() {
+    protected void createOrResumePlayer(String courseId) {
         if (mViewModel.player == null) {
             mViewModel.player = new SimpleExoPlayer.Builder(mActivity).build();
 
@@ -128,5 +130,20 @@ public class VideoHandler {
 
     public boolean isPlaying() {
         return mViewModel.player.isPlaying();
+    }
+
+    public void onBackPressed() {
+        if (mActivity.getRequestedOrientation() == ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE) {
+            try {
+                Method method = StyledPlayerControlView.class.getDeclaredMethod("onFullScreenButtonClicked", View.class);
+                method.setAccessible(true);
+                method.invoke(controlView, new View(mActivity));
+            } catch (IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
+                e.printStackTrace();
+            }
+        } else {
+            mActivity.finish();
+        }
+
     }
 }

@@ -35,7 +35,7 @@ public class VideoActivity extends AppCompatActivity {
         courseId = (String) getIntent().getSerializableExtra(COURSE_ID);
         handler = new VideoHandler(this);
 
-        handler.createOrResumePlayer();
+        handler.createOrResumePlayer(courseId);
 
         if (savedInstanceState != null) {
             Boolean playing = savedInstanceState.getBoolean(key);
@@ -54,6 +54,11 @@ public class VideoActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         handler.pausePlayer();
+    }
+
+    @Override
+    public void onBackPressed() {
+        handler.onBackPressed();
     }
 
     @Override

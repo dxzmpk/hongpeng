@@ -27,7 +27,7 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 
 import java.util.List;
 
-@FragmentDestination(pageUrl = "home", asStarter = true)
+@FragmentDestination(pageUrl = "home", asStarter = false)
 public class HomeFragment extends AbsListFragment<Activity, HomeViewModel> {
 
     private HomeViewModel homeViewModel;
