@@ -18,6 +18,8 @@ import com.dxzmpk.hongpeng.BR;
 import com.dxzmpk.hongpeng.R;
 import com.dxzmpk.hongpeng.databinding.LayoutCourseBinding;
 import com.dxzmpk.hongpeng.model.Course;
+import com.dxzmpk.hongpeng.ui.actdetail.ActDetailActivity;
+import com.dxzmpk.hongpeng.ui.player.VideoActivity;
 
 public class CourseAdapter extends PagedListAdapter<Course, CourseAdapter.ViewHolder> {
 
@@ -53,6 +55,8 @@ public class CourseAdapter extends PagedListAdapter<Course, CourseAdapter.ViewHo
     public void onBindViewHolder(@NonNull CourseAdapter.ViewHolder holder, int position) {
         final Course course = getItem(position);
         holder.bindData(course);
+
+        holder.itemView.setOnClickListener(v -> VideoActivity.startActivity(mContext, course.getCourseId()));
     }
 
 

@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase;
 import com.dxzmpk.libcommon.global.AppGlobals;
 
 
-@Database(entities = {Cache.class}, version = 1)
+@Database(entities = {Cache.class}, version = 1, exportSchema = false)
 public abstract class CacheDatabase extends RoomDatabase {
 
     private static final CacheDatabase cacheDatabase;
