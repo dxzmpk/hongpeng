@@ -7,6 +7,9 @@ import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleObserver;
+import androidx.lifecycle.OnLifecycleEvent;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.fragment.FragmentNavigator;
@@ -27,7 +30,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayDeque;
 
-public class VideoHandler {
+public class VideoHandler  {
 
     protected AppCompatActivity mActivity;
     protected ActivityVideoBinding mVideoBinding;
@@ -98,6 +101,9 @@ public class VideoHandler {
             // Start the playback.
             mViewModel.player.play();
         } else {
+            // when the orientation is on landscape mode, the activity is created so the playerView
+            // is whole new, isFullScreen flag between false again, which is incorrect, here I call
+            // onFullScreenButtonClicked to restore the flag.
             if (mActivity.getRequestedOrientation() == ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE) {
                 restoreLandScapeFullScreen();
             }
@@ -106,6 +112,10 @@ public class VideoHandler {
         }
     }
 
+
+    /**
+     * invoke onFullScreenButtonClicked method through reflection
+     */
     private void restoreLandScapeFullScreen() {
         try {
             Method method = StyledPlayerControlView.class.getDeclaredMethod("onFullScreenButtonClicked", View.class);
@@ -124,6 +134,7 @@ public class VideoHandler {
         }
     }
 
+    // when the activity destroy, pause the player
     public void pausePlayer() {
         mViewModel.player.pause();
     }

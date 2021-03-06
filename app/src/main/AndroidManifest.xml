@@ -14,15 +14,17 @@
         android:theme="@style/Theme.Nav_raw"
         android:usesCleartextTraffic="true">
         <activity android:name=".ui.player.VideoActivity"
-            android:theme="@style/Theme.WithOutActionBar">
-
+            android:theme="@style/Theme.WithOutActionBar"
+            android:screenOrientation="locked">
         </activity>
         <activity
             android:name=".ui.actdetail.ActDetailActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="locked"/>
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:screenOrientation="locked">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
